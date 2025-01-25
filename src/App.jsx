@@ -1,7 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Header from "./components/Header/header";
+import Header from "./components/Header/Header";
 import Home from "./pages/Home/home";
-import Footer from "./components/Footer/footer";
+import "./index.css";
+import Footer from "./components/Footer/Footer";
+import SignIn from "./pages/SignIn/SignIn";
 
 function App() {
   return (
@@ -9,6 +11,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<SignIn />} />
       </Routes>
       <Footer />
     </Router>

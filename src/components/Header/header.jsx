@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/argentBankLogo.png";
-import "./Header.css";
+import "./header.css";
 
 function Header() {
   return (
