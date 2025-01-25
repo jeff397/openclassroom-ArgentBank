@@ -1,4 +1,4 @@
-import "./Hero.css";
+import "./hero.css";
 
 function Hero() {
   return (
@@ -8,7 +8,7 @@ function Hero() {
         <p className="subtitle">No fees.</p>
         <p className="subtitle">No minimum deposit.</p> {/* Correction ici */}
         <p className="subtitle">High interest rates.</p>
-        <p className="text">Open a saving account with Argent Bank today!</p>
+        <p className="text">Open a savings account with Argent Bank today!</p>
       </section>
     </div>
   );
