@@ -69,7 +69,7 @@ function LoginForm() {
               type="checkbox"
               id="remember-me"
               checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)} // ✅ Mise à jour de l'état
+              onChange={(e) => setRememberMe(e.target.checked)}
             />
             <label htmlFor="remember-me">Remember me</label>
           </div>
