@@ -73,7 +73,7 @@ function LoginForm() {
             />
             <label htmlFor="remember-me">Remember me</label>
           </div>
-          {error && <p className="error-message">{error}</p>}
+          {error && <p className="error-message">login failed</p>}
 
           <button type="submit" className="sign-in-button">
             Sign In
