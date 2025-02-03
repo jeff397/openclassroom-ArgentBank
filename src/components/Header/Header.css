@@ -32,3 +32,34 @@
   max-width: 100%;
   width: 200px;
 }
+
+.user-firstname {
+  font-weight: bold;
+  color: #2c3e50;
+  text-decoration: none;
+  margin-right: 0.5rem;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.firstname:hover {
+  text-decoration: underline;
+}
+
+.logout-btn {
+  font-weight: bold;
+  color: #2c3e50;
+  text-decoration: none;
+  margin-right: 0.5rem;
+  background: none;
+  border: none;
+
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}

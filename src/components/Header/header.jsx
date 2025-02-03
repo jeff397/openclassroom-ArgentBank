@@ -1,8 +1,24 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
+import { logoutSuccess } from "../../slices/loginSlice";
+import { userLogout } from "../../slices/userSlice";
 import logo from "../../assets/argentBankLogo.png";
 import "./header.css";
 
 function Header() {
+  const firstName = useSelector((state) => state.user.firstName);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isAuth = useSelector((state) => state.login.isAuth);
+
+  const handleLogout = () => {
+    dispatch(logoutSuccess());
+    dispatch(userLogout());
+    navigate("/");
+  };
+
   return (
     <div>
       <nav className="main-nav">
@@ -14,10 +30,24 @@ function Header() {
           />
           <h1 className="sr-only">Argent Bank</h1>
         </NavLink>
+
         <div>
-          <NavLink to="/login" className="main-nav-item">
-            <i className="fa fa-user-circle"></i>&nbsp;Sign In
-          </NavLink>
+          {isAuth ? (
+            <div className="user-firstname">
+              <i className="fa fa-user-circle"></i>&nbsp;
+              <span className="firstname">{firstName}&nbsp;</span>
+              <button
+                onClick={handleLogout}
+                className="main-nav-item logout-btn"
+              >
+                <i className="fa fa-sign-out"></i>&nbsp;Sign Out
+              </button>
+            </div>
+          ) : (
+            <NavLink to="/login" className="main-nav-item">
+              <i className="fa fa-user-circle"></i>&nbsp;Sign In
+            </NavLink>
+          )}
         </div>
       </nav>
     </div>
