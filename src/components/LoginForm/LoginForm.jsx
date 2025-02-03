@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginSuccess, loginFail } from "../../Slices/LoginSlice";
-import { LoginCall } from "../../Api/LoginAuth";
+import { useNavigate } from "react-router-dom";
+import { loginSuccess, loginFail } from "../../Slices/loginSlice";
+import { LoginCall } from "../../Api/loginAuth";
 import "./LoginForm.css";
 
 function LoginForm() {
   const dispatch = useDispatch();
   const { error } = useSelector((state) => state.login);
-
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -25,13 +26,8 @@ function LoginForm() {
       const token = data.body.token;
       console.log("Données retournées par l'API :", data);
 
-      if (rememberMe) {
-        localStorage.setItem("token", token);
-      } else {
-        sessionStorage.setItem("token", token);
-      }
-
       dispatch(loginSuccess({ body: { token } }));
+      navigate("/user");
     } catch (err) {
       const errorMessage = err.message || "Login failed";
       dispatch(loginFail(errorMessage));

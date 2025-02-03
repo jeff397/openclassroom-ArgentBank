@@ -1,4 +1,11 @@
-function user() {
-  return <div>hello</div>;
+import Profile from "../../components/profile/Profile";
+
+function User() {
+  return (
+    <div>
+      <Profile />
+    </div>
+  );
 }
-export default user;
+
+export default User;

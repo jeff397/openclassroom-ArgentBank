@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const loginState = {
-  token: localStorage.getItem("token"),
-  isAuth: !!localStorage.getItem("token"),
+  token: null,
+  isAuth: false,
   error: null,
 };
 
@@ -14,18 +14,15 @@ const loginSlice = createSlice({
       state.token = action.payload.body.token;
       state.isAuth = true;
       state.error = null;
-      localStorage.setItem("token", state.token);
     },
     loginFail: (state, action) => {
       state.token = null;
       state.isAuth = false;
       state.error = action.payload;
-      localStorage.removeItem("token");
     },
     logoutSuccess: (state) => {
       state.isAuth = false;
       state.error = null;
-      localStorage.removeItem("token");
     },
     resetError: (state) => {
       state.error = null;
