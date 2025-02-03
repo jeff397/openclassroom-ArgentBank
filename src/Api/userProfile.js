@@ -3,7 +3,7 @@ import { userSuccess, userFail } from "../slices/userSlice";
 export const userProfile = (token) => async (dispatch) => {
   try {
     const res = await fetch("http://localhost:3001/api/v1/user/profile", {
-      method: "get",
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -16,11 +16,8 @@ export const userProfile = (token) => async (dispatch) => {
 
     const data = await res.json();
 
-    dispatch({ type: userSuccess, payload: data.body });
+    dispatch(userSuccess(data.body));
   } catch (error) {
-    dispatch({
-      type: userFail,
-      payload: error.message,
-    });
+    dispatch(userFail(error.message));
   }
 };
