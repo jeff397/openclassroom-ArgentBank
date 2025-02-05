@@ -1,28 +1,32 @@
-export const updateUserProfile = async ({
-  firstName,
-  lastName,
-  userName,
-  token,
-}) => {
-  console.log("Token envoyé dans la requête :", token); // 🔍 Vérification
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
-  try {
-    const response = await fetch("http://localhost:3001/api/v1/user/profile", {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${token}`, // 🔥 Vérifie bien ce format !
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ firstName, lastName, userName }),
-    });
+export const updateUserProfile = createAsyncThunk(
+  "user/updateProfile",
+  async ({ userName, token }, { rejectWithValue }) => {
+    try {
+      const response = await fetch(
+        "http://localhost:3001/api/v1/user/profile",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Vérifie bien que le token est inclus !
+          },
+          body: JSON.stringify({ userName }),
+        }
+      );
 
-    if (!response.ok) {
-      throw new Error(`Erreur API : ${response.statusText}`);
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message || "Erreur lors de la mise à jour du profil"
+        );
+      }
+
+      return data.body; // Ce retour sera envoyé au `fulfilled` dans `extraReducers`
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Erreur API :", error);
-    throw error;
   }
-};
+);
