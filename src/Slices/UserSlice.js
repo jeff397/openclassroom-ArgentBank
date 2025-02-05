@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { updateUserProfile } from "../api/updateUserProfile"; // Assure-toi que le chemin est correct
 
 const initialState = {
   profile: null,
@@ -15,40 +16,43 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     userLogout: (state) => {
+      state.profile = null;
       state.email = null;
       state.firstName = null;
       state.lastName = null;
       state.id = null;
+      state.userName = null;
       state.error = null;
     },
-
     userSuccess: (state, action) => {
       state.profile = action.payload;
       state.email = action.payload.email;
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
+      state.userName = action.payload.userName;
       state.id = action.payload.id;
       state.error = null;
     },
-
-    updateUserProfile: (state, action) => {
-      state.profile = action.payload;
-      state.firstName = action.payload.firstName;
-      state.lastName = action.payload.lastName;
-      state.userName = action.payload.userName;
+    userFail: (state, action) => {
+      state.error = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(updateUserProfile.fulfilled, (state, action) => {
+        console.log("Mise à jour réussie :", action.payload); // 🔍 Debug
 
-    userFail: (state) => {
-      state.email = null;
-      state.firstName = null;
-      state.lastName = null;
-      state.id = null;
-    },
+        state.profile = action.payload;
+        state.firstName = action.payload.firstName;
+        state.lastName = action.payload.lastName;
+        state.userName = action.payload.userName; // Mise à jour de userName
+      })
+      .addCase(updateUserProfile.rejected, (state, action) => {
+        console.error("Erreur de mise à jour :", action.payload);
+        state.error = action.payload;
+      });
   },
 });
 
-export const { userLogout, userSuccess, userFail, updateUserProfile } =
-  userSlice.actions;
-export const userReducer = userSlice.reducer;
-
+export const { userLogout, userSuccess, userFail } = userSlice.actions;
 export default userSlice.reducer;
