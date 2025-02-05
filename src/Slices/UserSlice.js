@@ -5,6 +5,7 @@ const initialState = {
   email: null,
   firstName: null,
   lastName: null,
+  userName: null,
   id: null,
   error: null,
 };
@@ -30,6 +31,13 @@ const userSlice = createSlice({
       state.error = null;
     },
 
+    updateUserProfile: (state, action) => {
+      state.profile = action.payload;
+      state.firstName = action.payload.firstName;
+      state.lastName = action.payload.lastName;
+      state.userName = action.payload.userName;
+    },
+
     userFail: (state) => {
       state.email = null;
       state.firstName = null;
@@ -39,7 +47,8 @@ const userSlice = createSlice({
   },
 });
 
-export const { userLogout, userSuccess, userFail } = userSlice.actions;
+export const { userLogout, userSuccess, userFail, updateUserProfile } =
+  userSlice.actions;
 export const userReducer = userSlice.reducer;
 
 export default userSlice.reducer;
