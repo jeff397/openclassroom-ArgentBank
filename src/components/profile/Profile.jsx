@@ -1,22 +1,18 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userProfile } from "../../api/userProfile";
-import { updateUserProfile } from "../../api/updateUserProfile"; // Fonction pour mettre à jour l'utilisateur
+import { updateUserProfile } from "../../api/updateUserProfile";
 
 import "./profile.css";
 
 function Profile() {
-  // Déclaration de l'état isEditing avec useState
   const [isEditing, setIsEditing] = useState(false);
   const [userName, setUserName] = useState("");
-
   const dispatch = useDispatch();
   const token = useSelector((state) => state.login.token);
   console.log("Token dans Redux :", token);
-
   const profile = useSelector((state) => state.user.profile);
 
-  // Initialisation des valeurs de userName, firstName et lastName
   useEffect(() => {
     if (token) {
       dispatch(userProfile(token));
@@ -27,23 +23,23 @@ function Profile() {
 
   useEffect(() => {
     if (profile) {
-      setUserName(profile.userName || ""); // Initialiser le username avec la valeur actuelle du profil
+      setUserName(profile.userName || "");
     }
   }, [profile]);
 
   const handleSave = () => {
     if (userName !== profile?.userName) {
-      console.log("Token envoyé dans handleSave :", token); // 🔍 Vérification
+      // console.log("Token envoyé dans handleSave :", token);
 
       dispatch(
         updateUserProfile({
           ...profile,
           userName,
-          token, // Assure-toi que le token est bien inclus !
+          token,
         })
       );
 
-      setIsEditing(false); // Fermer le formulaire
+      setIsEditing(false);
     }
   };
 
@@ -51,9 +47,14 @@ function Profile() {
     <main className="main bg-dark">
       <div className="header">
         <h1>
-          {isEditing
-            ? "Edit user info"
-            : `Welcome back\n${profile?.firstName} ${profile?.lastName} !`}
+          {isEditing ? (
+            "Edit user info"
+          ) : (
+            <>
+              Welcome back <br />
+              {profile?.firstName} {profile?.lastName} !
+            </>
+          )}
         </h1>
 
         {isEditing ? (
