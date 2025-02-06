@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { updateUserProfile } from "../api/updateUserProfile"; // Assure-toi que le chemin est correct
+import { updateUserProfile } from "../api/updateUserProfile";
 
 const initialState = {
   profile: null,
@@ -40,12 +40,12 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(updateUserProfile.fulfilled, (state, action) => {
-        console.log("Mise à jour réussie :", action.payload); // 🔍 Debug
+        console.log("Mise à jour réussie :", action.payload);
 
         state.profile = action.payload;
         state.firstName = action.payload.firstName;
         state.lastName = action.payload.lastName;
-        state.userName = action.payload.userName; // Mise à jour de userName
+        state.userName = action.payload.userName;
       })
       .addCase(updateUserProfile.rejected, (state, action) => {
         console.error("Erreur de mise à jour :", action.payload);
