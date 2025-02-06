@@ -74,6 +74,34 @@
   color: #fff;
 }
 
+.form-box {
+  margin-bottom: 1em;
+}
+
+.form-input {
+  width: 120px;
+  margin-left: 0.5em;
+  padding: 0.5em;
+  border-radius: 4px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+
+.save-btn,
+.cancel-btn {
+  width: 7em;
+  padding: 0.5em;
+  font-family: helvetica;
+  font-size: 16px;
+  font-weight: bold;
+  background: #00bc77;
+  color: #fff;
+  border-radius: 4px;
+}
 @media (min-width: 720px) {
   .account {
     flex-direction: row;

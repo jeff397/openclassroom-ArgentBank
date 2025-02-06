@@ -27,10 +27,9 @@ function Profile() {
     }
   }, [profile]);
 
-  const handleSave = () => {
+  const handleSave = (e) => {
+    e.preventDefault();
     if (userName !== profile?.userName) {
-      // console.log("Token envoyé dans handleSave :", token);
-
       dispatch(
         updateUserProfile({
           ...profile,
@@ -38,7 +37,6 @@ function Profile() {
           token,
         })
       );
-
       setIsEditing(false);
     }
   };
@@ -58,39 +56,59 @@ function Profile() {
         </h1>
 
         {isEditing ? (
-          <div>
-            <label>
-              Username:
-              <input
-                type="text"
-                name="userName"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-              />
-            </label>
+          <form className="profile-form" onSubmit={handleSave}>
+            <div className="form-box">
+              <label htmlFor="userName">
+                User name:
+                <input
+                  type="text"
+                  name="userName"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                  className="form-input"
+                />
+              </label>
+            </div>
 
-            <label>
-              First Name:
-              <input
-                type="text"
-                name="firstName"
-                value={profile?.firstName}
-                readOnly
-              />
-            </label>
-            <label>
-              Last Name:
-              <input
-                type="text"
-                name="lastName"
-                value={profile?.lastName}
-                readOnly
-              />
-            </label>
+            <div className="form-box">
+              <label htmlFor="firstName">
+                First Name:
+                <input
+                  type="text"
+                  name="firstName"
+                  value={profile?.firstName}
+                  readOnly
+                  className="form-input"
+                />
+              </label>
+            </div>
 
-            <button onClick={handleSave}>Save</button>
-            <button onClick={() => setIsEditing(false)}>Cancel</button>
-          </div>
+            <div className="form-box">
+              <label htmlFor="lastName">
+                Last Name:
+                <input
+                  type="text"
+                  name="lastName"
+                  value={profile?.lastName}
+                  readOnly
+                  className="form-input"
+                />
+              </label>
+            </div>
+
+            <div className="form-actions">
+              <button type="submit" className="save-btn">
+                Save
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsEditing(false)}
+                className="cancel-btn"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
         ) : (
           <>
             <button className="edit-button" onClick={() => setIsEditing(true)}>
