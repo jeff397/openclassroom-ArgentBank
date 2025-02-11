@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { userProfile } from "../../api/userProfile";
 import { updateUserProfile } from "../../api/updateUserProfile";
 
@@ -8,6 +9,7 @@ import "./profile.css";
 function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [userName, setUserName] = useState("");
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.login.token);
   console.log("Token dans Redux :", token);
@@ -16,8 +18,6 @@ function Profile() {
   useEffect(() => {
     if (token) {
       dispatch(userProfile(token));
-    } else {
-      console.error("Aucun token trouvé !");
     }
   }, [dispatch, token]);
 
