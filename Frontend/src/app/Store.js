@@ -2,7 +2,7 @@ import { persistReducer, persistStore, PERSIST } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { configureStore } from "@reduxjs/toolkit";
 import { loginReducer } from "../slices/loginSlice";
-import userReducer from "../slices/userSlice";
+import userReducer from "../Slices/UserSlice";
 
 const loginConfig = {
   key: "login",

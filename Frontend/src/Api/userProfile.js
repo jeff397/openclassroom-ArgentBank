@@ -1,4 +1,4 @@
-import { userSuccess, userFail } from "../slices/userSlice";
+import { userSuccess, userFail } from "../Slices/UserSlice";
 
 export const userProfile = (token) => async (dispatch) => {
   try {
