@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { logoutSuccess } from "../../slices/loginSlice";
-import { userLogout } from "../../slices/userSlice";
+import { userLogout } from "../../Slices/UserSlice";
 import logo from "../../assets/argentBankLogo.png";
 import "./header.css";
 
@@ -19,7 +19,6 @@ function Header() {
   const handleLogout = () => {
     dispatch(logoutSuccess());
     dispatch(userLogout());
-    navigate("/");
   };
   console.log("userName dans Redux:", userName);
 

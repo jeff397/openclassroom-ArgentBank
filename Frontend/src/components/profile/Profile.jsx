@@ -12,14 +12,17 @@ function Profile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.login.token);
+  const isAuth = useSelector((state) => state.login.isAuth);
   console.log("Token dans Redux :", token);
   const profile = useSelector((state) => state.user.profile);
 
   useEffect(() => {
-    if (token) {
+    if (!isAuth) {
+      navigate("/login");
+    } else if (token) {
       dispatch(userProfile(token));
     }
-  }, [dispatch, token]);
+  }, [dispatch, isAuth, token, navigate]);
 
   useEffect(() => {
     if (profile) {
