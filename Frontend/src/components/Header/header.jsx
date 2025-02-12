@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { logoutSuccess } from "../../slices/loginSlice";
 import { userLogout } from "../../Slices/UserSlice";
-import logo from "../../assets/argentBankLogo.png";
+import logo from "../../assets/argentBankLogo.webp";
 import "./header.css";
 
 function Header() {
