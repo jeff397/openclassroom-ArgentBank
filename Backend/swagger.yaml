@@ -115,9 +115,13 @@ paths:
         "200":
           description: User transactions retrieved successfully
           schema:
-            $ref: "#/definitions/ApiResponse"
+            type: array
+            items:
+              $ref: "#/definitions/AccountTransactions"
         "400":
           description: Transactions not retrieved
+        "403":
+          description: Access forbidden
         "500":
           description: Internal Server Error
 
@@ -135,9 +139,11 @@ paths:
         "200":
           description: User transaction details retrieved successfully
           schema:
-            $ref: "#/definitions/ApiResponse"
+            $ref: "#/definitions/Transaction"
         "400":
           description: Details not retrieved
+        "403":
+          description: Access forbidden
         "500":
           description: Internal Server Error
     put:
@@ -163,63 +169,14 @@ paths:
         "200":
           description: Transaction category modified successfully
           schema:
-            $ref: "#/definitions/ApiResponse"
+            $ref: "#/definitions/Transaction"
         "400":
           description: Category not modified
+        "403":
+          description: Access forbidden
         "500":
           description: Internal Server Error
-    post:
-      security:
-        - Bearer: []
-      tags:
-        - User Transactions
-      summary: Add a note on a transaction
-      description: API for adding a note
-      parameters:
-        - in: body
-          name: body
-          description: Add a note
-          required: true
-          schema:
-            type: object
-            properties:
-              note:
-                type: string
-      produces:
-        - application/json
-      responses:
-        "200":
-          description: Transaction note added successfully
-          schema:
-            $ref: "#/definitions/ApiResponse"
-        "400":
-          description: Note not added
-        "500":
-          description: Internal Server Error
-  /user/transactions/{transactionId}:
-    delete:
-      security:
-        - Bearer: []
-      tags:
-        - User Transactions
-      summary: Delete a transaction note
-      description: API for deleting a note on a transaction
-      parameters:
-        - name: transactionId
-          in: path
-          required: true
-          type: string
-      produces:
-        - application/json
-      responses:
-        "200":
-          description: Transaction note deleted successfully
-          schema:
-            $ref: "#/definitions/ApiResponse"
-        "400":
-          description: Note not deleted
-        "500":
-          description: Internal Server Error
+
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -275,3 +232,27 @@ definitions:
     properties:
       userName:
         type: string
+  Transaction:
+    type: object
+    properties:
+      transactionId:
+        type: integer
+      date:
+        type: string
+      type:
+        type: string
+      category:
+        type: string
+      note:
+        type: string
+      amount:
+        type: number
+  AccountTransactions:
+    type: object
+    properties:
+      accountId:
+        type: integer
+      transactions:
+        type: array
+        items:
+          $ref: "#/definitions/Transaction"
